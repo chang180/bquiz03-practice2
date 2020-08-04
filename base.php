@@ -58,9 +58,9 @@ class DB
     }
     public function save($arg)
     {
-        if (isset($arg)) {
+        if (isset($arg['id'])) {
             foreach ($arg as $k => $v) $tmp[] = "`$k`='$v'";
-            $sql = sprintf("UPDATE %s SET %s WHERE `ID`='%s'", $this->table, implode(",", $tmp), $arg['id']);
+            $sql = sprintf("UPDATE %s SET %s WHERE `id`='%s'", $this->table, implode(",", $tmp), $arg['id']);
         } else $sql = sprintf("INSERT INTO %s (`%s`)VALUES('%s')", $this->table, implode("`,`", array_keys($arg)), implode("','", $arg));
         return $this->pdo->exec($sql);
     }
@@ -69,3 +69,9 @@ function to($url)
 {
     header("location:$url");
 }
+
+$Movie=new DB('movie');
+$ord=new DB('ord');
+$Poster=new DB('poster');
+
+if(empty($_SESSION['ani'])) $_SESSION['ani']=1;
