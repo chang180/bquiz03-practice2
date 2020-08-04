@@ -70,8 +70,15 @@ function to($url)
     header("location:$url");
 }
 
-$Movie=new DB('movie');
-$ord=new DB('ord');
-$Poster=new DB('poster');
+$Movie = new DB('movie');
+$ord = new DB('ord');
+$Poster = new DB('poster');
 
-if(empty($_SESSION['ani'])) $_SESSION['ani']=1;
+$level = [
+    "1" => "普遍級",
+    "2" => "保護級",
+    "3" => "輔導級",
+    "4" => "限制級"
+];
+
+if (empty($_SESSION['ani'])) $_SESSION['ani'] = 1;
