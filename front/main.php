@@ -4,9 +4,11 @@
         <div class="rb tab" style="width:95%;">
             <div id="abgne-block-20111227">
                 <!-- 海報區 -->
-                <div class="poster" style="height:300px;position:relative">
-                    <img id="showpost" style="height:250px"><br>
-                    <span id="showname"></span>
+                <div style="height:300px;">
+                    <div class="poster" style="position:relative">
+                        <img id="showpost" style="height:250px"><br>
+                        <span id="showname"></span>
+                    </div>
                 </div>
                 <!-- 按鈕區 -->
                 <div style="display:flex;height:100px">
@@ -48,7 +50,7 @@
         if (x == 1 && nowpage - 1 >= 0) {
             nowpage--;
         }
-        if (x == 2 && (nowpage + 1)  <= num * 1 - 4) {
+        if (x == 2 && (nowpage + 1) <= num * 1 - 4) {
             nowpage++;
         }
         $(".im").hide()
