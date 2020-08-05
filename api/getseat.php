@@ -12,7 +12,7 @@ for($i=1;$i<=20;$i++){
 echo "<img src='icon/03D03.png'>";
 }else{
     echo "<img src='icon/03D02.png'>";
-echo "<input type='checkbox' name='seat[]' value='$i'>";
+echo "<input type='checkbox' name='seat[]' value='$i' class='seat'>";
     }
     if($i%5==0) echo "<br>";
 }
