@@ -72,7 +72,7 @@ function to($url)
 }
 
 $Movie = new DB('movie');
-$ord = new DB('ord');
+$Ord = new DB('ord');
 $Poster = new DB('poster');
 
 $level = [
