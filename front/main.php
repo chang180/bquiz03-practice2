@@ -18,7 +18,7 @@
                     foreach ($posters as $key => $p) {
                     ?>
                         <div class="im" id="ssaa<?= $key; ?>" onclick="change(<?= $key; ?>)"><img src="img/<?= $p['path']; ?>" style="width:60px;height:80px"><br>
-                            <div class="txt"><?= $p['movie']; ?></div>
+                            <div class="txt" style="font-size:8px"><?= $p['movie']; ?></div>
                         </div>
                     <?php
                     }
@@ -31,12 +31,39 @@
     <div class="half">
         <h1>院線片清單</h1>
         <div class="rb tab" style="width:95%;">
-            <table>
-                <tbody>
-                    <tr> </tr>
-                </tbody>
-            </table>
-            <div class="ct"> </div>
+            <div style="display:flex;flex-wrap:wrap">
+                <?php
+                $total = $Movie->count();
+                $now = $_GET['p'] ?? "1";
+                $div = 4;
+                $pages = ceil($total / $div);
+                $start = ($now - 1) * $div;
+
+                $movies = $Movie->all([], " LIMIT $start,$div");
+                foreach ($movies as $m) {
+                ?>
+                    <div style="width:45%;border:1px solid black;">
+                        片名：<?= $m['name']; ?><br>
+                        <div style="display:flex">
+                            <img src="img/<?= $m['poster']; ?>" style="width:60px;height:80px">
+                            <div>
+                                <div>分級：<?= $level[$m['level']]; ?></div>
+                                <div>上映日期：<?= $m['ondate']; ?></div>
+                            </div>
+                        </div>
+                        <div class="ct">
+                            <a href="?do=intro&id=<?= $m['id']; ?>">劇情簡介</a><a href="?do=order&id=<?= $m['id']; ?>">線上訂票</a>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+            <div class="ct">
+                <?php
+                for ($i = 1; $i <= $pages; $i++) {
+                    echo "<a href='?p=$i'>$i</a>";
+                }
+                ?>
+            </div>
         </div>
     </div>
 </div>
