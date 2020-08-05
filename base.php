@@ -22,6 +22,7 @@ class DB
             $sql .= " WHERE " . implode(" && ", $tmp);
         }
         $sql .= $arg[1] ?? "";
+        // echo $sql;
         return $this->pdo->query($sql)->fetchAll();
     }
     public function count(...$arg)
@@ -79,6 +80,14 @@ $level = [
     "2" => "保護級",
     "3" => "輔導級",
     "4" => "限制級"
+];
+
+$sess = [
+    "1" => "14:00~16:00",
+    "2" => "16:00~18:00",
+    "3" => "18:00~20:00",
+    "4" => "20:00~22:00",
+    "5" => "22:00~24:00"
 ];
 
 if (empty($_SESSION['ani'])) $_SESSION['ani'] = 1;
