@@ -31,7 +31,7 @@
     您選擇的電影是<span id="mName"></span><br>
     您選擇的時刻是<span id="mDate"></span>&nbsp;<span id="mSess"></span><br>
     你已經勾選了<span id="ticket">0</span> 張票，最多可以購買4張票<br>
-    <button onclick="prev()">上一步</button><button id="send">訂購</button>
+    <button onclick="prev()">上一步</button><button type="button" id="send">訂購</button>
   </div>
 </div>
 
@@ -70,37 +70,43 @@
     let date = $("#date option:selected").val();
     let session = $("#sess option:selected").val();
     let ticket = 0;
-    let seat=[];
-    
-    
+    let seat = [];
+
+
     $("#mName").text($("#name option:selected").text());
     $("#mDate").text($("#date option:selected").text());
     $("#mSess").text($("#sess option:selected").text());
-    
+
     $(".order-form,.booking-form").toggle();
 
-      $.get("api/getseat.php",{movie,date,session},function(res){
+    $.get("api/getseat.php", {
+      movie,
+      date,
+      session
+    }, function(res) {
       $(".room").html(res);
-$(".seat").change(function(){
-if(this.checked){
-  if(ticket>3) this.checked=false;
-  else{
-    ticket++;
-    seat.push(this.value);
-  }
-}else{
-    ticket--;
-    seat.splice(seat.indexOf(this.value,1));
-  }
+      $(".seat").change(function() {
+        if (this.checked) {
+          if (ticket > 3) this.checked = false;
+          else {
+            ticket++;
+            seat.push(this.value);
+          }
+        } else {
+          ticket--;
+          seat.splice(seat.indexOf(this.value, 1));
+        }
 
-  $("#ticket").text(ticket);
-  $("#send").on("click",function(){
-    $.post("api/order.php",{},function(res){
-      location.href=`index.php?do=result&no=${res}`;
-    })
-  })
-})
+        $("#ticket").text(ticket);
+       
       })
+      $("#send").on("click", function() {
+          $.post("api/order.php", {movie,date,session,seat,"qt":ticket}, function(res) {
+            // console.log(res);
+            location.href = `index.php?do=result&no=${res}`;
+          })
+        })
+    })
   }
 
   function prev() {

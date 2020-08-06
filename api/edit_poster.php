@@ -1,6 +1,7 @@
 <?php
 include_once "../base.php";
 // print_r($_POST);
+$_SESSION['ani']=$_POST['ani'];
 foreach ($_POST['id'] as $key => $id) {
     if (!empty($_POST['del']) && in_array($id, $_POST['del'])) {
         $Poster->del($id);
